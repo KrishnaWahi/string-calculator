@@ -1,0 +1,22 @@
+{
+  "name": "string-calculator",
+  "version": "1.0.0",
+  "description": "A simple string calculator implemented using TDD principles.",
+  "main": "src/stringCaculator.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KrishnaWahi/string-calculator.git"
+  },
+  "author": "Krishna Wahi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KrishnaWahi/string-calculator/issues"
+  },
+  "homepage": "https://github.com/KrishnaWahi/string-calculator#readme"
+}
