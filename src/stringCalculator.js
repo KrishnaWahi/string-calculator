@@ -39,11 +39,11 @@ function stringCalculator(inputString) {
     return sum;
 }
 
-// Examples:
-console.log(stringCalculator("")); // Output: 0
-console.log(stringCalculator("1,3")); // Output: 4
-console.log(stringCalculator("1\n2,3")); // Output: 6
-console.log(stringCalculator("//;\n1;2")); // Output: 3
+module.exports = stringCalculator;
 
-// Throws: Negative numbers not allowed: -2
-console.log(stringCalculator("1,-2,3")); 
+// Examples:
+// console.log(stringCalculator("")); // Output: 0
+// console.log(stringCalculator("1,3")); // Output: 4
+// console.log(stringCalculator("1\n2,3")); // Output: 6
+// console.log(stringCalculator("//;\n1;2")); // Output: 3
+// console.log(stringCalculator("1,-2,3")); // Throws: Negative numbers not allowed: -2
