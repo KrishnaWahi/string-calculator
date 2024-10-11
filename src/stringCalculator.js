@@ -7,11 +7,17 @@ function stringCalculator(inputString) {
     if (inputString.startsWith("//")) {
         const delimiterEndIdx = inputString.indexOf("\n");
 
-        // Check for delimiters wrapped in brackets
+        // Extract the custom delimiter part
         const customDelimiterPart = inputString.substring(2, delimiterEndIdx);
-        if (customDelimiterPart.startsWith("[")) {
-            delimiter = new RegExp(customDelimiterPart.slice(1, -1)); // Remove brackets
+
+        // Check if the delimiters are wrapped in brackets
+        const bracketedDelimiters = customDelimiterPart.match(/\[(.*?)\]/g);
+        if (bracketedDelimiters) {
+            // Regex pattern for all custom delimiters found
+            const escapedDelimiters = bracketedDelimiters.map(delim => delim.slice(1, -1).replace(/[-\/\\^$.*+?()[\]{}|]/g, '\\$&'));
+            delimiter = new RegExp(escapedDelimiters.join('|')); // Combining all delimiters with OR (|)
         } else {
+            // No brackets, use the single custom delimiter
             delimiter = new RegExp(customDelimiterPart);
         }
 
