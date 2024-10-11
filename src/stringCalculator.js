@@ -1,24 +1,30 @@
 function stringCalculator(inputString) {
     if (inputString === "") return 0;
     let delimiter = /[,\n]/;
-    let numbersStr = inputString
+    let numbersStr = inputString;
 
     // Check for custom delimiter format: "//[delimiter]\n[numbers...]"
     if (inputString.startsWith("//")) {
         const delimiterEndIdx = inputString.indexOf("\n");
-        delimiter = new RegExp(inputString.substring(2, delimiterEndIdx)); // Extracting custom delimiter
+
+        // Check for delimiters wrapped in brackets
+        const customDelimiterPart = inputString.substring(2, delimiterEndIdx);
+        if (customDelimiterPart.startsWith("[")) {
+            delimiter = new RegExp(customDelimiterPart.slice(1, -1)); // Remove brackets
+        } else {
+            delimiter = new RegExp(customDelimiterPart);
+        }
+
         numbersStr = inputString.substring(delimiterEndIdx + 1); // Skipping custom delimiter
     }
 
-    // Split by comma and newline using regex
     const numbers = numbersStr.split(delimiter);
     const negatives = [];
 
-    // Calculating sum
     const sum = numbers.reduce((total, number) => {
         if (isNaN(number) || number === "") return total;
 
-        const parsedNumber = parseInt(number)
+        const parsedNumber = parseFloat(number);
         if (parsedNumber < 0) {
             negatives.push(parsedNumber);
         }
@@ -26,7 +32,6 @@ function stringCalculator(inputString) {
         return total + parsedNumber;
     }, 0);
 
-    // If any negative numbers are found, throw an exception
     if (negatives.length > 0) {
         throw new Error(`Negative numbers not allowed: ${negatives.join(", ")}`);
     }
