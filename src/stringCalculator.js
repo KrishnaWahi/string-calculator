@@ -3,11 +3,25 @@ function stringCalculator(numbersStr) {
 
     // Split by comma and newline using regex
     const numbers = numbersStr.split(/[\n,]/);
+    const negatives = [];
 
+    // Calculating sum
     const sum = numbers.reduce((total, number) => {
         if (isNaN(number) || number === "") return total;
-        return total + parseInt(number);
+        
+        const parsedNumber = parseInt(number)
+        if (parsedNumber < 0) {
+            negatives.push(parsedNumber);
+        }
+
+        return total + parsedNumber;
     }, 0);
+
+    // If any negative numbers are found, throw an exception
+    if (negatives.length > 0) {
+        throw new Error(`Negative numbers not allowed: ${negatives.join(", ")}`);
+    }
+
     return sum;
 }
 
@@ -15,3 +29,6 @@ function stringCalculator(numbersStr) {
 console.log(stringCalculator("")); // Output: 0
 console.log(stringCalculator("1,3")); // Output: 4
 console.log(stringCalculator("1\n2,3")); // Output: 6
+
+// Throws: Negative numbers not allowed: -2
+console.log(stringCalculator("1,-2,3")); 
